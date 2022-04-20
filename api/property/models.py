@@ -38,6 +38,7 @@ class Property(models.Model):
     BathRooms = models.IntegerField(blank=False)
     Structureype = models.CharField(max_length=255,blank=False)
     UserId = models.ForeignKey(User,on_delete=models.CASCADE)
+    UserWalletAddress = models.CharField(max_length=255,blank=False)
     is_active = models.BooleanField(default=True,blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

@@ -100,7 +100,7 @@ const Listing = () => {
       <img src={PropertyData.image3} width={380} height={250} ></img>
       </Property.ImageContainer>
       <Property.ImageContainer>
-      <img src={PropertyData.image1} width={380} height={250} ></img>
+      <img src={PropertyData.image4} width={380} height={250} ></img>
       </Property.ImageContainer>
     </Property.Gallery>
 

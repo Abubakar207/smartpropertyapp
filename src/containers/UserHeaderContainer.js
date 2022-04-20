@@ -39,8 +39,9 @@ const UserHeaderContainer = ({ bg, source }) => {
 
 	// update account, will cause component re-render
 	const accountChangedHandler = (newAccount) => {
-		setDefaultAccount(newAccount);
+		setDefaultAccount(newAccount);00
 		getAccountBalance(newAccount.toString());
+    localStorage.setItem("WalletAddress", defaultAccount);
 	}
 
 	const getAccountBalance = (account) => {
@@ -55,6 +56,7 @@ const UserHeaderContainer = ({ bg, source }) => {
 
 	const chainChangedHandler = () => {
 		// reload the page to avoid any errors with chain change mid use of application
+    localStorage.setItem("WalletAddress", defaultAccount);
 		window.location.reload();
 	}
 
@@ -101,7 +103,7 @@ const UserHeaderContainer = ({ bg, source }) => {
             <HeaderWrapper.List links="links">
               {Userlinks.map((link) => (
                 <HeaderWrapper.Item key={link.to}>
-                  <HeaderWrapper.Anchor bg={bg} fixed={fixed} to={`${link.to}`}>
+                  <HeaderWrapper.Anchor  bg={bg} fixed={fixed} to={`${link.to}`}>
                     {link.name}
                   </HeaderWrapper.Anchor>
                 </HeaderWrapper.Item>
@@ -176,6 +178,7 @@ const UserHeaderContainer = ({ bg, source }) => {
       <div className='accountDisplay text-center my-3'>
 				<h4>Wallet Balance <br/> 
         <h5>  {userBalance}</h5>   
+     
         </h4>
 			</div>
 			{errorMessage}

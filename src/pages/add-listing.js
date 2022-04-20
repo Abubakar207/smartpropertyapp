@@ -14,9 +14,8 @@ import {
 
 const AddLisiting = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmitFun = (data) => {
-    console.log(data);
-  };
+  let history = useHistory();
+ 
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState("");
@@ -55,7 +54,16 @@ const AddLisiting = () => {
   const [pictureError1, setPictureError1] = useState("");
   const [pictureError2, setPictureError2] = useState("");
   const [picture3, setPicture3] = useState();
+  const [picture4, setPicture4] = useState();
+  const [UserWalletAddress,setUserWalletAddress ] = useState(localStorage.getItem("WalletAddress"));
+     if(localStorage.getItem("WalletAddress") == 'null')
+     {
+       alert('Wallet Not connected.Please first Attach your wallet') 
+       history.goBack()
+     }
+   
 
+   
   const FormHandler = (e) => {
     e.preventDefault();
     if (
@@ -137,6 +145,7 @@ const AddLisiting = () => {
       formData.append("image1", picture1, picture1.name);
       formData.append("image2", picture2, picture2.name);
       formData.append("image3", picture3, picture3.name);
+      formData.append("image4", picture4, picture4.name);
       formData.append("PropertyTitle", title);
       formData.append("Purpose", subCategory);
       formData.append("Price", price);
@@ -154,6 +163,7 @@ const AddLisiting = () => {
       formData.append("ZipCode", zipCode);
       formData.append("City", city);
       formData.append("UserId", 1);
+      formData.append("UserWalletAddress", UserWalletAddress);
 
       axios
         .post("http://127.0.0.1:8000/api/property/", formData)
@@ -171,6 +181,9 @@ const AddLisiting = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showModal2, setshowModal2] = useState(false);
+  const handleClose2 = () => setshowModal2(false);
+  const handleShow2 = () => setshowModal2(true);
   return (
     <>
       <UserHeaderContainer bg="false" />
@@ -418,6 +431,22 @@ const AddLisiting = () => {
                           />
                         </section>
                       </Form.FormGroup>
+
+                      <Form.FormGroup>
+                        <Form.Label>Images-4</Form.Label>
+                        {/* Special input file case */}
+                        <section>
+                          <input
+                            className="form-control p-3"
+                            type="file"
+                            onChange={(e) => {
+                              setPicture4(e.target.files[0]);
+                              console.log(e.target.files[0]);
+                            }}
+                            required
+                          />
+                        </section>
+                      </Form.FormGroup>
                     </Add.MediaContent>
 
                     <Add.DetailsHeader>
@@ -514,10 +543,22 @@ const AddLisiting = () => {
                           <Form.Option>Square feet</Form.Option>
                           <Form.Option>Square yard</Form.Option>
                           <Form.Option>Square meter</Form.Option>
+                          <Form.Option>Marla</Form.Option>
                           <Form.Option>Acre</Form.Option>
                         </Form.Select>
                         <h6 style={{ color: "red" }}>{unitError}</h6>
                       </Form.FormGroup>
+                      <Form.FormGroup>
+                      <Form.Label>
+                        Wallet Address
+                      </Form.Label>
+                      <Form.Input
+                        type="text"
+                        value={UserWalletAddress}
+                        disabled
+                      />
+                      <h6 style={{ color: "red" }}>{addressError}</h6>
+                    </Form.FormGroup>
                     </Add.DetailsContent>
                   </Add.DescriptionContentBottom>
                 </Add.DescriptionContent>
@@ -547,6 +588,7 @@ const AddLisiting = () => {
         </Modal.Header>
         <Modal.Body>Your property form is successfuly  submitted.</Modal.Body>
       </Modal>
+
     </>
   );
 };
