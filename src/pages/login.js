@@ -19,6 +19,7 @@ const Loginn = () => {
   localStorage.removeItem("access_token");
   localStorage.removeItem("refresh_token");
   localStorage.removeItem("WalletAddress");
+  localStorage.removeItem("uid");
   const LoginFormHandler = (e) => {
     e.preventDefault();
     if (Email == "") {

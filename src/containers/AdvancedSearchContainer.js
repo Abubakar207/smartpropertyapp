@@ -35,59 +35,84 @@ const AdvancedSearchContainer = () => {
   ].sort((a, b) => a - b);
 
   const [priceRange, setPriceRange] = useState(0);
-
+  const [listed, setlisted] = useState('');
+  const [category, setcategory] = useState('');
+  const [city, setCity] = useState('');
   useEffect(() => {
     dispatch(getPropertyList());
   }, [dispatch]);
+  const SearchFormHandler = (e) =>{
+    localStorage.setItem("listed",listed );
+    localStorage.setItem("category",category );
+    localStorage.setItem("city",city );
+    localStorage.setItem("price",priceRange );
+   // e.preventDefault();
+  }
   return (
     <FormWrapper>
       <FormWrapper.Header>
         <FormWrapper.Title>Advanced Search</FormWrapper.Title>
       </FormWrapper.Header>
       <FormWrapper.Content>
-        <Form>
+        <Form onSubmit={SearchFormHandler}>
+        <Form.FormGroup>
+          <Form.Select 
+              name="city"
+              value={city}
+              onChange={(e) => {
+              setCity(e.target.value);
+              }}>
+              <Form.Option defaultValue>Cities</Form.Option>
+                <Form.Option >Lahore</Form.Option>
+                <Form.Option >Karachi</Form.Option>
+                <Form.Option >Faislabad</Form.Option>
+                <Form.Option >Islamabad</Form.Option>
+            </Form.Select>
+          </Form.FormGroup>
           <Form.FormGroup>
-            <Form.Select>
+            <Form.Select 
+              name="listed"
+              value={listed}
+                        onChange={(e) => {
+                          setlisted(e.target.value);
+                        }} >
               <Form.Option defaultValue>Types</Form.Option>
-              {listedIn.map((type) => (
-                <Form.Option key={type}>{type}</Form.Option>
-              ))}
+              <Form.Option>Rental</Form.Option>
+              <Form.Option>Sales</Form.Option>
             </Form.Select>
           </Form.FormGroup>
-        
           <Form.FormGroup>
-            <Form.Select>
+          <Form.Select 
+              name="category"
+              value={category}
+              onChange={(e) => {
+              setcategory(e.target.value);
+              }}>
               <Form.Option defaultValue>Categories</Form.Option>
-              {categories.map((category) => (
-                <Form.Option key={category}>{category}</Form.Option>
-              ))}
+              <Form.Option>Apartment</Form.Option>
+                <Form.Option>House</Form.Option>
+                 <Form.Option>Office</Form.Option>
             </Form.Select>
           </Form.FormGroup>
-          <Form.FormGroup>
-            <Form.Select>
-              <Form.Option defaultValue>Bed Rooms</Form.Option>
-              {rooms.map((room) => (
-                <Form.Option key={Math.random(room)}>{room}</Form.Option>
-              ))}
-            </Form.Select>
-          </Form.FormGroup>
+          
           <Form.FormGroup>
             <Form.Span>
               {" "}
-              Price range: Ksh {priceFormat(+priceRange)} to Ksh{" "}
-              {priceFormat(maxPrice)}
+              Price range: Rs {priceFormat(+priceRange)} to Rs{" "}
+              {priceFormat(500000000)}
             </Form.Span>
             <Form.RangeInput
               type="range"
               min={minPrice}
-              max={maxPrice}
+              max={500000000}
+              name="price"
               value={priceRange}
-              onChange={({ target: { value } }) => setPriceRange(value)}
+              onChange={(e) => {
+                setPriceRange(e.target.value);
+              }}
             />
           </Form.FormGroup>
-          <Form.FormGroup>
-            <Form.Input type="text" placeholder="Search Term" />
-          </Form.FormGroup>
+          
           <Form.FormGroup>
             <Form.SubmitInput type="submit" value="Search" />
           </Form.FormGroup>

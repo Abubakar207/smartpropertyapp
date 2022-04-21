@@ -21,17 +21,26 @@ const FeaturedListingContainer = () => {
       .get("http://localhost:8000/api/property/")
       .then((res) => {
         setPropertyData(res.data);
-        // setPropertyData(res.data.filter(data => data.City === "Lahore" ))
-        // FilterByCityName()
+        const queryParams = new URLSearchParams(window.location.search);
+        const Listed = queryParams.get('listed');
+        const Category = queryParams.get('category');
+        const City = queryParams.get('city');
+        const Price = queryParams.get('price');
+       // console.log(Listed+Category+City+Price)
+        if(City.length>1)
+        {
+          setPropertyData(res.data.filter(data => data.City === City ))
+        }
+        else
+        {
+          setPropertyData(res.data);
+        }
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err.response);
       });
   }, []);
-  const FilterByCityName = () => {
-    const data = PropertyData;
-    //setPropertyData(data.filter(data => Number(data.ZipCode) == 37998 ))
-  };
+  
   return (
     <Section bgColor="--bs-light">
       <Section.InnerContainer>

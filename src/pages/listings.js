@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UserHeaderContainer from "../containers/UserHeaderContainer";
+import { FeaturedListingContainer } from "../containers";
 import {
   ListingItemContainer,
   AdvancedSearchContainer,
@@ -25,25 +26,15 @@ const Listing = () => {
       <Section bgColor="--bs-fade-info">
         <Section.InnerContainer>
           <Section.Flex>
-            <Section.FlexItem width="30%" relative flexStart>
+            <Section.FlexItem width="22%" relative flexStart>
               <Section.Shadow>
                 <AdvancedSearchContainer />
               </Section.Shadow>
             </Section.FlexItem>
-            <Section.FlexItem width="65%">
-              <Section.Title>Our Property List</Section.Title>
+            <Section.FlexItem width="73%">
               <Section.Content>
-                {properties.map((featured) => (
-                  <ListingItemContainer
-                    key={featured.id}
-                    featured={featured}
-                    width="49%"
-                  />
-                ))}
+                <FeaturedListingContainer/>
               </Section.Content>
-              <Section.Footer>
-                <Section.Button>More Listing</Section.Button>
-              </Section.Footer>
             </Section.FlexItem>
           </Section.Flex>
         </Section.InnerContainer>
