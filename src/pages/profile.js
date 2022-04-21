@@ -30,6 +30,7 @@ const UserProfile = () => {
         setName(res.data.name);
         setPhone(res.data.phone);
         setCnic(res.data.cnic);
+        localStorage.setItem("uid", res.data.id);
         console.log(res.data);
       })
       .catch((err) => {

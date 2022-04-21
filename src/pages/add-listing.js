@@ -74,7 +74,6 @@ const AddLisiting = () => {
   })
   .catch((err) => {
    console.log(err.response.data)
-   alert("User token is expired.")
   });
 },[])
    

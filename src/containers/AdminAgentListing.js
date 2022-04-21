@@ -1,43 +1,74 @@
 import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import axios from "axios";
 import { getPropertyList } from "../redux/actions/propertiesAction";
 import {
   AdminListingHeader,
   PropertyData,
   PropertyHead,
 } from "../partials/admin_listing_partial";
+import {  useHistory } from "react-router-dom";
 
 import { Table, AdminListing } from "../components";
 
 const AdminAgentListing = () => {
-  const [selectId, setSelectId] = useState(null);
+  let history = useHistory();
 
-  const dispatch = useDispatch();
-
-  const { properties } = useSelector((state) => state.propertyList);
-
-  useEffect(() => {
-    dispatch(getPropertyList());
-  }, [dispatch]);
-
-  const handleDeleteAction = (id) => console.log(id);
+const [PropertyData, setPropertyData] = useState([]);
+let UserId = localStorage.getItem('uid')
+ useEffect(() => {
+  axios
+    .get("http://localhost:8000/api/property/")
+    .then((res) => {
+     // console.log(res.data)
+      setPropertyData(res.data.filter(data => Number(data.UserId) === Number(UserId) ))
+      console.log(PropertyData)
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
+}, []);
+const moreDetailPropertyHandler = (id) =>{
+history.push(`/property/${id}`,true);
+}
   return (
     <AdminListing>
       <AdminListing.Top>
-        <AdminListingHeader
-          selectId={selectId}
-          handleDeleteAction={handleDeleteAction}
-        />
+    
       </AdminListing.Top>
       <AdminListing.Content>
         <Table>
           <PropertyHead />
           <Table.Body>
-            {properties.map((property) => (
-              <PropertyData property={property} setSelectId={setSelectId} />
-            ))}
+          <Table.Head>
+         </Table.Head>
+            {
+                 PropertyData.map((property)=>(
+                  <Table.Row>
+                  <Table.Data>{property.PropertyTitle}</Table.Data>
+                  <Table.Data>{property.Price}</Table.Data>
+                  <Table.Data>{property.Category}</Table.Data>
+                  <Table.Data>{property.SubCategory}</Table.Data>
+                  <Table.Data>
+                    <Table.Button onClick={()=> moreDetailPropertyHandler(property.id)} >
+                       More
+                    </Table.Button>
+                  </Table.Data>
+                  <Table.Data>
+                    <Table.Button>
+                    Update
+                    </Table.Button>
+                  </Table.Data>
+                  <Table.Data>
+                    <Table.Button>
+                    Delete
+                    </Table.Button>
+                  </Table.Data>
+                </Table.Row>
+                 ))
+
+            }
           </Table.Body>
         </Table>
       </AdminListing.Content>

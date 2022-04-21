@@ -30,7 +30,7 @@ export const adminurls = [
     subUrl: true,
     subUrls: [
       { url: "/add-listing", name: "Add Listing", icon: "fas fa-plus" },
-      { url: "/all-listing", name: "All Listing", icon: "far fa-list-alt" },
+      { url: "/mylisting", name: "All Listing", icon: "far fa-list-alt" },
     ],
   },
   {

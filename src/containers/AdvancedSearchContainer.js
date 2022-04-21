@@ -54,14 +54,7 @@ const AdvancedSearchContainer = () => {
               ))}
             </Form.Select>
           </Form.FormGroup>
-          <Form.FormGroup>
-            <Form.Select>
-              <Form.Option defaultValue>Counties</Form.Option>
-              {counties.map((county) => (
-                <Form.Option key={county}>{county}</Form.Option>
-              ))}
-            </Form.Select>
-          </Form.FormGroup>
+        
           <Form.FormGroup>
             <Form.Select>
               <Form.Option defaultValue>Categories</Form.Option>
