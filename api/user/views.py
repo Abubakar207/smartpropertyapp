@@ -137,3 +137,27 @@ class verifyTokenView(APIView):
               return Response({'token':token,'msg': "Verification Successful"},status=status.HTTP_200_OK)
           return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         return Response({'error':'please enter 18 digit valid token.'},status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileView(APIView):
+  renderer_classes = [UserRenderer]
+  # permission_classes = [IsAuthenticated]
+  def get(self, request, format=None):
+    serializer = UserProfileSerializer(request.user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserProfileViewById(APIView):
+  renderer_classes = [UserRenderer]
+  permission_classes = [IsAuthenticated]
+  def get(self,request,format=None,pk=None):
+        id =pk
+        if id is not None:
+            if User.objects.filter(pk=id).exists():
+                user = User.objects.get(id=id)
+                serializers = UserProfileSerializer(user)
+                return Response(serializers.data)
+            return Response({'error':'Invalid user id.'})
+        user = User.objects.all()
+        serializers = UserProfileSerializer(user,many=True)
+        return Response(serializers.data)

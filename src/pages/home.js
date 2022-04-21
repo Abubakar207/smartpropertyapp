@@ -10,9 +10,9 @@ import UserHeaderContainer from "../containers/UserHeaderContainer";
 const Home = () => {
   return (
     <>
-      <UserHeaderContainer bg="false" source="/images/banners/banner4.jpg" />
+      <UserHeaderContainer bg="true" source="/images/banners/banner4.jpg" />
       <FeaturedListingContainer />
-      {/* <FeaturedAgentsContainer /> */}
+      <FeaturedAgentsContainer />
       <HomeContactContainer />
       <FooterContainer />
     </>

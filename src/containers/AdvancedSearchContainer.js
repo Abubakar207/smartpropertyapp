@@ -9,7 +9,7 @@ import { priceFormat } from "../helpers/helper_functions";
 
 const AdvancedSearchContainer = () => {
   const dispatch = useDispatch();
-  const [city,SetCity] = useState("")
+
   const { properties } = useSelector((state) => state.propertyList);
 
   const price = properties.map(
@@ -35,28 +35,33 @@ const AdvancedSearchContainer = () => {
   ].sort((a, b) => a - b);
 
   const [priceRange, setPriceRange] = useState(0);
-  
-  const OnFilterSubmit = (e)=>{
-     alert(city)
-    e.preventDefault()
-  }
+
   useEffect(() => {
     dispatch(getPropertyList());
   }, [dispatch]);
   return (
     <FormWrapper>
-      
-      <FormWrapper.Content>
-        <Form onSubmit={OnFilterSubmit}>
+      <FormWrapper.Header>
         <FormWrapper.Title>Advanced Search</FormWrapper.Title>
+      </FormWrapper.Header>
+      <FormWrapper.Content>
+        <Form>
           <Form.FormGroup>
-            <Form.Select onChange={(e)=>SetCity(e.target.value)} value={city}>
-              <Form.Option defaultValue>Location</Form.Option>
-              <Form.Option>Lahore</Form.Option>
-              <Form.Option >Karachi</Form.Option>
+            <Form.Select>
+              <Form.Option defaultValue>Types</Form.Option>
+              {listedIn.map((type) => (
+                <Form.Option key={type}>{type}</Form.Option>
+              ))}
             </Form.Select>
           </Form.FormGroup>
-    
+          <Form.FormGroup>
+            <Form.Select>
+              <Form.Option defaultValue>Counties</Form.Option>
+              {counties.map((county) => (
+                <Form.Option key={county}>{county}</Form.Option>
+              ))}
+            </Form.Select>
+          </Form.FormGroup>
           <Form.FormGroup>
             <Form.Select>
               <Form.Option defaultValue>Categories</Form.Option>

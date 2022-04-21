@@ -84,6 +84,7 @@ class UserChangePasswordSerializer(serializers.Serializer):
     return attrs
 
 
+
 class UserUpdateProfileSerializer(serializers.Serializer):
   email = serializers.EmailField(max_length=255)
   name = serializers.CharField(max_length=200)

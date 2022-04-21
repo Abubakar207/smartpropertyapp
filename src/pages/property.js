@@ -74,17 +74,30 @@ const Listing = () => {
                 <Property.Icon name="fas fa-map-marker-alt"></Property.Icon>
                 <Property.Text>{PropertyData.City}</Property.Text>
               </Property.Location>
-            </Property.HeaderLeft>
+              
+            </Property.HeaderLeft>   
+            <Property.HeaderRight>
+              <Property.Title>
+               <div className="btn btn-primary btn-lg" style={{ backgroundColor: '#8D8DAA'}}>
+               {PropertyData.SubCategory}
+               </div>
+             
+              </Property.Title>
+            </Property.HeaderRight>
+               
+          </Property.Header>
+          <Property.Header>
+            
             <Property.HeaderRight>
               <Property.Title>
                 Rs {"   "}
                 {PropertyData.Price}
-                <Property.Span>
-                  {PropertyData.SubCategory === "rental" ? "/ Month" : ""}
-                </Property.Span>
+                
               </Property.Title>
             </Property.HeaderRight>
+           
           </Property.Header>
+    
           <Property.Content>
             <Property.Left>
 
@@ -152,7 +165,7 @@ const Listing = () => {
       <Property.InfoContent contentShown={addressShown}>
         <Property.InfoItem>
           <Property.Text>
-            {/* St #39 , Tember Marker , Lahore */}
+          
             {PropertyData.Address}
           </Property.Text>
           <Property.Text>
@@ -198,12 +211,8 @@ const Listing = () => {
 
             <Property.Right>
 
-              <ContactAgentContainer property={property} />
+              <ContactAgentContainer property=  {PropertyData.UserId} />
 
-              {/* <PropertyRelatedContainer
-                property={property}
-                featured={filteredFeatured}
-              /> */}
 
             </Property.Right>
           </Property.Content>

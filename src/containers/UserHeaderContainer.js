@@ -25,6 +25,7 @@ const UserHeaderContainer = ({ bg, source }) => {
 				accountChangedHandler(result[0]);
 				setConnButtonText('Wallet Connected');
 				getAccountBalance(result[0]);
+        localStorage.setItem("WalletAddress", defaultAccount);
 			})
 			.catch(error => {
 				setErrorMessage(error.message);
@@ -39,9 +40,8 @@ const UserHeaderContainer = ({ bg, source }) => {
 
 	// update account, will cause component re-render
 	const accountChangedHandler = (newAccount) => {
-		setDefaultAccount(newAccount);00
+		setDefaultAccount(newAccount);
 		getAccountBalance(newAccount.toString());
-    localStorage.setItem("WalletAddress", defaultAccount);
 	}
 
 	const getAccountBalance = (account) => {
@@ -56,7 +56,6 @@ const UserHeaderContainer = ({ bg, source }) => {
 
 	const chainChangedHandler = () => {
 		// reload the page to avoid any errors with chain change mid use of application
-    localStorage.setItem("WalletAddress", defaultAccount);
 		window.location.reload();
 	}
 
@@ -69,9 +68,7 @@ const UserHeaderContainer = ({ bg, source }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const ShowModal = () =>{
-    handleShow()
-  }
+  const ShowModal = () => handleShow()
 
  //0xd9145CCE52D386f254917e481eB44e9943F39138
 
@@ -95,8 +92,8 @@ const UserHeaderContainer = ({ bg, source }) => {
       <HeaderWrapper bg={bg} fixed={fixed}>
         <HeaderWrapper.Container>
           <HeaderWrapper.Title bg={bg}>
-            <HeaderWrapper.Link bg={bg} fixed={fixed} to="/">
-              Real Home
+            <HeaderWrapper.Link bg={bg} fixed={fixed} to="/home">
+              Smart Property
             </HeaderWrapper.Link>
           </HeaderWrapper.Title>
           <HeaderWrapper.LinksContainer>
@@ -139,28 +136,7 @@ const UserHeaderContainer = ({ bg, source }) => {
           </Jumbotron.Left>
           <Jumbotron.Right>
             <AdvancedSearchContainer />
-            {/* <div className="card">
-              <div className="card-header h3">
-                    Advance Serach
-              </div>
-              <div className="card-body">
-                 <div className="form-group my-3">
-                   <label for="">Category</label>
-                   <input type="text" name="category" className="form-control" placeholder="Category"/>
-                 </div>
-                 <div className="form-group my-3">
-                  <input type="text" name="category" className="form-control" placeholder="Category"/>
-                </div>
-                <div className="form-group my-3">
-                  <label for="">Price</label>
-                  <input type="text" name="category" className="form-control" placeholder="Category"/>
-                </div>
-                <div className="form-group my-3">
-                  <label for="">City</label>
-                  <input type="text" name="category" className="form-control" placeholder="Category"/>
-                </div>
-              </div>
-            </div>  */}
+      
           </Jumbotron.Right>
         </Jumbotron>
       )}
@@ -175,12 +151,12 @@ const UserHeaderContainer = ({ bg, source }) => {
         <h5> {defaultAccount}</h5>   
         </h4>
 			</div>
-      <div className='accountDisplay text-center my-3'>
-				<h4>Wallet Balance <br/> 
-        <h5>  {userBalance}</h5>   
+      {/* <div className='accountDisplay text-center my-3'>
+				<h4>Wallet Balance  <br/> 
+        <h5>  {userBalance} </h5>   
      
         </h4>
-			</div>
+			</div> */}
 			{errorMessage}
         </Modal.Body>
         <Modal.Footer>

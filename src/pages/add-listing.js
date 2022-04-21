@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef ,useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Section, Add, Form } from "../components";
 import axios from "axios";
@@ -55,14 +55,28 @@ const AddLisiting = () => {
   const [pictureError2, setPictureError2] = useState("");
   const [picture3, setPicture3] = useState();
   const [picture4, setPicture4] = useState();
+  const [UserId, setUserId] = useState();
   const [UserWalletAddress,setUserWalletAddress ] = useState(localStorage.getItem("WalletAddress"));
-     if(localStorage.getItem("WalletAddress") == 'null')
+     if(localStorage.getItem("WalletAddress") == 'null' || localStorage.getItem('WalletAddress') === null)
      {
        alert('Wallet Not connected.Please first Attach your wallet') 
        history.goBack()
      }
    
 
+
+  let token = localStorage.getItem('access_token')
+  const getUser = useEffect(()=>{
+  axios
+  .get("http://127.0.0.1:8000/api/user/profile/", { headers: {"Authorization" : `Bearer ${token}`} })
+  .then((res) => {
+    setUserId(res.data.id)
+  })
+  .catch((err) => {
+   console.log(err.response.data)
+   alert("User token is expired.")
+  });
+},[])
    
   const FormHandler = (e) => {
     e.preventDefault();
@@ -162,7 +176,7 @@ const AddLisiting = () => {
       formData.append("Address", address);
       formData.append("ZipCode", zipCode);
       formData.append("City", city);
-      formData.append("UserId", 1);
+      formData.append("UserId", Number(UserId));
       formData.append("UserWalletAddress", UserWalletAddress);
 
       axios
@@ -248,7 +262,8 @@ const AddLisiting = () => {
                         </Form.Option>
                         <Form.Option>Apartment</Form.Option>
                         <Form.Option>House</Form.Option>
-                        <Form.Option>Land</Form.Option>
+                        <Form.Option>Office</Form.Option>
+                        {/* <Form.Option>Land</Form.Option> */}
                       </Form.Select>
                       <h6 style={{ color: "red" }}>{categoryError}</h6>
                     </Form.FormGroup>
@@ -458,18 +473,7 @@ const AddLisiting = () => {
                       </Add.Title>
                     </Add.DetailsHeader>
                     <Add.DetailsContent>
-                      <Form.FormGroup>
-                        <Form.Label>Rooms</Form.Label>
-                        <Form.InputNumber
-                          type="text"
-                          value={rooms}
-                          onChange={(e) => {
-                            setRooms(e.target.value);
-                            console.log(rooms);
-                          }}
-                        />
-                        <h6 style={{ color: "red" }}>{roomsError}</h6>
-                      </Form.FormGroup>
+                    
                       <Form.FormGroup>
                         <Form.Label>Bedrooms</Form.Label>
                         <Form.InputNumber

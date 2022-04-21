@@ -18,6 +18,7 @@ const Loginn = () => {
   const [data, setData] = useState([]);
   localStorage.removeItem("access_token");
   localStorage.removeItem("refresh_token");
+  localStorage.removeItem("WalletAddress");
   const LoginFormHandler = (e) => {
     e.preventDefault();
     if (Email == "") {

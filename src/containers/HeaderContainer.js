@@ -29,7 +29,7 @@ const HeaderContainer = ({ bg, source }) => {
         <HeaderWrapper.Container>
           <HeaderWrapper.Title bg={bg}>
             <HeaderWrapper.Link bg={bg} fixed={fixed} to="/">
-              Real Home
+              Smart Property
             </HeaderWrapper.Link>
           </HeaderWrapper.Title>
           <HeaderWrapper.LinksContainer>

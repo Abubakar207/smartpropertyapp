@@ -20,7 +20,6 @@ const FeaturedListingContainer = () => {
     axios
       .get("http://localhost:8000/api/property/")
       .then((res) => {
-        //console.log(res.data)
         setPropertyData(res.data);
         // setPropertyData(res.data.filter(data => data.City === "Lahore" ))
         // FilterByCityName()
@@ -36,67 +35,19 @@ const FeaturedListingContainer = () => {
   return (
     <Section bgColor="--bs-light">
       <Section.InnerContainer>
-        <div
-          className="container"
-          style={{ backgroundImage: `url(${Background})` }}
-        >
-          <div className="row">
-            <span className="h1 text-center text-light py-2 pt-3  px-2">
-              Search properties for sale or rent in Pakistan{" "}
-            </span>
-            <div className="card">
-                <div className="card-body">
-
-          <Container>
-                <Row>
-                     <Col lg={{ span: 6, offset: 3 }}> 
-          <Form >
-          <Form.FormGroup>
-            <Form.Select >
-              <Form.Option defaultValue>Select City</Form.Option>
-              <Form.Option>Lahore</Form.Option>
-              <Form.Option >Karachi</Form.Option>
-            </Form.Select>
-          </Form.FormGroup>
-    
-          <Form.FormGroup>
-            <Form.Select>
-              <Form.Option defaultValue>Categories</Form.Option>
-             
-            </Form.Select>
-          </Form.FormGroup>
-          <Form.FormGroup>
-            <Form.Select>
-              <Form.Option defaultValue>Bed Rooms</Form.Option>
-            
-            </Form.Select>
-          </Form.FormGroup>
-          <Form.FormGroup>
-            <Form.Span>
-             
-            </Form.Span>
-          </Form.FormGroup>
-          <Form.FormGroup>
-            <Form.SubmitInput type="submit" value="Search" />
-          </Form.FormGroup>
-        </Form>
-                     </Col>
-                </Row>
-                </Container>
-      
-            </div>
-         </div>
-          </div>
-        </div>
         <Section.Header>
           <Section.Title>Our Featured Listing</Section.Title>
         </Section.Header>
         <Section.Content>
           {PropertyData.map((data) => (
+          
             <Listing>
               <Listing.Top>
+              <Listing.Anchor to={`/property/${data.id}`}>
                 <Listing.TopItem>
-                  <img src={data.image1} width={365} height={250}></img>
+               
+                  <img src={data.image1} width="100%" height="50%"></img>
+                 
                   <Listing.TopItemContainer>
                     <Listing.TopItemInfo>
                       <Listing.Icon></Listing.Icon>
@@ -104,6 +55,7 @@ const FeaturedListingContainer = () => {
                     </Listing.TopItemInfo>
                   </Listing.TopItemContainer>
                 </Listing.TopItem>
+                 </Listing.Anchor>
               </Listing.Top>
               <Listing.Bottom>
                 <Listing.BottomItem>
@@ -113,15 +65,18 @@ const FeaturedListingContainer = () => {
                     </Listing.Anchor>
                   </Listing.Title>
                   <Listing.Price>
+                    
                     Rs
                     {data.Price}
                   </Listing.Price>
                   <Listing.Text description>
                     {data.Description.substring(0, 100)}
                   </Listing.Text>
+                 
                 </Listing.BottomItem>
               </Listing.Bottom>
             </Listing>
+           
           ))}
         </Section.Content>
         <Section.Footer>

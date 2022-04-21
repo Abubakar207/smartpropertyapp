@@ -21,7 +21,7 @@ const UserSideNavigationContainer = ({
           />
         </SideNavigation.Cross>
         <SideNavigation.Header>
-          <SideNavigation.Title>Real Home</SideNavigation.Title>
+          <SideNavigation.Title>Smart Property</SideNavigation.Title>
           <SideNavigation.Text>The Home You Deserve</SideNavigation.Text>
         </SideNavigation.Header>
 
